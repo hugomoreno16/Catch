@@ -10,7 +10,7 @@ export function ToGame() {
                             <label htmlFor="codigo" className="block text-sm font-medium text-gray-700">Codigo de la sala:</label>
                             <input type="text" id="codigo" name="codigo" placeholder="123456ABC" className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
                         </div>
-                        <button id="boton" type="submit" className="w-full px-4 py-2 bg-teal-700 hover:bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-white">¡A Jugar!</button>
+                        <button id="boton" type="submit" className="w-full px-4 py-2 bg-teal-700 hover:bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-white">¡Unirse!</button>
                     </form>
                 </div>
             </section>
