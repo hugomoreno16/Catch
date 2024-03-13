@@ -11,13 +11,17 @@ export function CrearPartida() {
     const vidas = useId();
     const navigate = useNavigate();
 
+    const goBack = ()=>{
+        navigate(-1);
+    }
+
     return (
         <>
             <section className="bg-gradient-to-br from-orange-300 to-rose-600 h-screen">
                 <header className="flex justify-between font-extrabold animate-flip-down animate-ease-in-out text-5xl text-center p-10">
-                    <div className='w-10 hover:cursor-pointer'>
+                    <button className='w-10' onClick={goBack} >
                         <LogoAtras />
-                    </div>
+                    </button>
                     <div>
                         <h1>INTRODUCIR PREGUNTAS</h1>
                     </div>

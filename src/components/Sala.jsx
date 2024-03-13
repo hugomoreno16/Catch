@@ -1,18 +1,25 @@
 import { LogoHome, LogoAtras } from './Icons'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function Sala() {
+    const navigate = useNavigate();
+
+    const goBack = () => {
+        navigate(-1);
+    };
+
     return (
         <>
             <section className="bg-gradient-to-br from-amber-300 to-yellow-400 h-screen" id="toGame">
                 <header className='flex justify-between p-8'>
-                    <div className='w-10'>
-                        <LogoAtras />
-                    </div>
+                <button className='w-10' onClick={goBack} >
+                    <LogoAtras />
+                </button>
                     <div>
                         <h1 className="font-extrabold animate-flip-down animate-ease-in-out text-5xl">SALA ESPERA</h1>
                     </div>
                     <div className='w-10'>
-                        <LogoHome />
+                        <Link to="/"><LogoHome /></Link>
                     </div>
                 </header>
                 <main className='flex justify-center mt-32'>

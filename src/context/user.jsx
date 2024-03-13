@@ -1,33 +1,46 @@
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { createContext, useState, useEffect } from "react";
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
-export function UserProvider({children}){
-    const [user, setUser] = useState({});
+export function UserProvider({ children }) {
+    const [user, setUser] = useState();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const getUser = async () =>{
+    const getUser = async () => {
         const userId = sessionStorage.getItem("userId");
         if (userId) {
-            try{
+            try {
                 const response = await axios.get("http://localhost:8080/api/admin/" + userId);
                 setUser(response.data);
-            }catch(e){
-                console.log(e);
+            } catch (error) {
+                setError(error);
+            } finally {
+                setLoading(false);
             }
+        } else {
+            setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         getUser();
     }, []);
 
-    return(
-        <UserContext.Provider value={{
-            user,
-            setUser
-        }}>
+    if (!loading) {
+        return (
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
-    )
+        )
+    }
+
+    if (error) {
+        return <ErrorMessage error={error} />;
+    }
 }
+
+const ErrorMessage = ({ error }) => {
+    return <div>Error: {error.message}</div>;
+};

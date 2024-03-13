@@ -1,12 +1,12 @@
 import Registro from './components/Registro';
-import {Routes, Route} from "react-router-dom";
-import Preguntas from './components/VerPreguntas';
-import Bienvenida from './components/RepositorioAdmin';
+import {Routes, Route } from "react-router-dom";
+import VerPreguntas from './components/VerPreguntas';
+import Repositorio from './components/RepositorioAdmin';
 import Home from './components/Home';
 import { LogIn } from "./components/LogIn";
 import { IntroducirPreguntas } from "./components/IntroducirPreguntas";
-import { CrearPartida } from "./components/CrearPartida";
 import { Sala } from "./components/Sala";
+import { CrearPartida } from './components/CrearPartida';
 
 function App() {
   return (
@@ -15,11 +15,11 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={<LogIn home="true"/>} />
         <Route path='/registro' element={<Registro/>} />
-        <Route path='/bienvenida' element={<Bienvenida/>} />
-        <Route path='/preguntas' element={<Preguntas/>} />
+        <Route path='/bienvenida' element={<Repositorio/>} />
+        <Route path='/preguntas' element={<VerPreguntas/>} />
         <Route path="/createPregunta" element={<IntroducirPreguntas />} />
-        <Route path="/createPartida" element={<CrearPartida />} />
         <Route path="/sala" element={<Sala />} />
+        <Route path="/createpartida" element={<CrearPartida />} />
       </Routes>
     </div>
   );

@@ -45,13 +45,17 @@ export function IntroducirPreguntas() {
         }
     }
 
+    const goBack = () => {
+        navigate(-1);
+    };
+
     return (
         <>
             <section className="bg-gradient-to-br from-orange-300 to-rose-600 h-screen">
                 <header className="flex justify-between font-extrabold animate-flip-down animate-ease-in-out text-5xl text-center p-10">
-                    <div className='w-10'>
+                    <button className='w-10' onClick={goBack}>
                         <LogoAtras />
-                    </div>
+                    </button>
                     <div>
                         <h1>INTRODUCIR PREGUNTAS</h1>
                     </div>
@@ -149,7 +153,7 @@ export function IntroducirPreguntas() {
                         </div>
 
                     </main>
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center pt-10'>
                         <button type='submit' className="p-3 bg-red-200 rounded-lg hover:bg-red-300 font-semibold">INTRODUCIR PREGUNTA</button>
                     </div>
                 </form>

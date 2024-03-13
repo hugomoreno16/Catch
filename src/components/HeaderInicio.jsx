@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { LogoUnirse, LogoRules, LogoLogIn, LogoVol } from './Icons.jsx';
+import { LogoUnirse, LogoRules, LogoLogIn } from './Icons.jsx';
 
 export function HeaderInicio() {
     const scrollToSection = (sectionId) => {
