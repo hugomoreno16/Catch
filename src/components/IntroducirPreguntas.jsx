@@ -1,10 +1,11 @@
 import React from 'react';
-import { useId } from 'react';
+import { useId, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { LogoAtras, LogoHome } from './Icons';
 import { Link } from 'react-router-dom';
+import usePregunta from '../hooks/usePregunta';
 
 export function IntroducirPreguntas() {
     const enunciado = useId();
@@ -18,32 +19,49 @@ export function IntroducirPreguntas() {
     const tiempo = useId();
     const navigate = useNavigate();
 
-    const { register, handleSubmit } = useForm();
-
     const userId = sessionStorage.getItem("userId");
+    const {preguntaId} = useParams();
+    const{pregunta} = usePregunta(preguntaId);
+
+    const { register, handleSubmit, setValue } = useForm();
 
     const onSubmit = async (info) => {
+        const infoParams = {
+            pregunta: info.pregunta,
+            respuestaCorrecta: info.respuestaCorrecta,
+            respuesta1: info.respuesta1,
+            respuesta2: info.respuesta2,
+            respuesta3: info.respuesta3,
+            nivel: info.nivel,
+            dificultad: info.dificultad,
+            asignatura: info.asignatura,
+            tiempo: Number(info.tiempo),
+            idAdmin: userId
+        }
         try {
-            const response = await axios.post("http://localhost:8080/api/pregunta", null, {
-                params: {
-                    pregunta: info.enunciado,
-                    respuestaCorrecta: info.respuestaCorrecta,
-                    respuesta1: info.respuesta1,
-                    respuesta2: info.respuesta2,
-                    respuesta3: info.respuesta3,
-                    nivel: info.nivel,
-                    dificultad: info.dificultad,
-                    asignatura: info.asignatura,
-                    tiempo: info.tiempo,
-                    idAdmin: userId
-                }
-            });
+            if(preguntaId){
+                await axios.put("http://localhost:8080/api/pregunta/" + preguntaId, null, {
+                    params: infoParams
+                });
+            }else{
+                await axios.post("http://localhost:8080/api/pregunta", null, {
+                    params: infoParams
+                });
+            }
             navigate("/preguntas");
 
         } catch (e) {
             console.log(e);
         }
     }
+
+    useEffect(() => {
+        if (preguntaId && pregunta) {
+            Object.keys(pregunta).forEach((key) => {
+                setValue(key, pregunta[key]);
+            });
+        }
+    }, [preguntaId, pregunta, setValue]);
 
     const goBack = () => {
         navigate(-1);
@@ -57,7 +75,13 @@ export function IntroducirPreguntas() {
                         <LogoAtras />
                     </button>
                     <div>
-                        <h1>INTRODUCIR PREGUNTAS</h1>
+                        {
+                            preguntaId ? (
+                                <h1> EDITAR PREGUNTA</h1>
+                            ) : (
+                                <h1>INTRODUCIR PREGUNTA</h1>
+                        )
+                        }
                     </div>
                     <div className='w-10'>
                         <Link to="/"><LogoHome /></Link>
@@ -69,13 +93,13 @@ export function IntroducirPreguntas() {
                         <div className='w-1/2 flex flex-col gap-10'>
                             <div>
                                 <label className='font-semibold' htmlFor={enunciado}>Enunciado: </label><br />
-                                <input className='h-10 w-96 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-300' name='enunciado' type="text" id={enunciado} required
-                                    {...register("enunciado")} />
+                                <input className='h-10 w-96 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-300' name='pregunta' type="text" id={enunciado} required
+                                     {...register("pregunta")}/>
                             </div>
                             <div>
                                 <label className='font-semibold' htmlFor={resCorrecta}>Respuesta Correcta: </label><br />
                                 <input className='h-10 w-96 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-300' name='respuestaCorrecta' type="text" id={resCorrecta} required
-                                    {...register("respuestaCorrecta")} />
+                                    {...register("respuestaCorrecta")}/>
                             </div>
                             <div>
                                 <label className='font-semibold' htmlFor={res1}>Respuesta 1: </label><br />
@@ -85,7 +109,7 @@ export function IntroducirPreguntas() {
                             <div>
                                 <label className='font-semibold' htmlFor={res2}>Respuesta 2: </label><br />
                                 <input className='h-10 w-96 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300' name='respuesta2' type="text" id={res2} required
-                                    {...register("respuesta2")} />
+                                    {...register("respuesta2")}/>
                             </div>
                             <div>
                                 <label className='font-semibold' htmlFor={res3}>Respuesta 3: </label><br />
@@ -129,32 +153,41 @@ export function IntroducirPreguntas() {
                                     id={dificultad} name="asignatura" {...register("asignatura")}
                                     required
                                 >
-                                    <option value="1ESO">Matematicas</option>
-                                    <option value="2ESO">Lengua</option>
-                                    <option value="3ESO">Física</option>
-                                    <option value="4ESO">Quimica</option>
-                                    <option value="1BACH">Biologia</option>
-                                    <option value="1ESO">Geoolgía</option>
-                                    <option value="2BACH">Inglés</option>
-                                    <option value="1ESO">Historia</option>
-                                    <option value="1ESO">Francés</option>
-                                    <option value="1ESO">Música</option>
-                                    <option value="1ESO">Informatica</option>
-                                    <option value="1ESO">Plástica</option>
-                                    <option value="1ESO">Filosofía</option>
-                                    <option value="1ESO">Economía</option>
+                                    <option value="Matematicas">Matematicas</option>
+                                    <option value="Lengua">Lengua</option>
+                                    <option value="Física">Física</option>
+                                    <option value="Quimica">Quimica</option>
+                                    <option value="Biologia">Biologia</option>
+                                    <option value="Geología">Geología</option>
+                                    <option value="Inglés">Inglés</option>
+                                    <option value="Historia">Historia</option>
+                                    <option value="Francés">Francés</option>
+                                    <option value="Música">Música</option>
+                                    <option value="Informatica">Informatica</option>
+                                    <option value="Plástica">Plástica</option>
+                                    <option value="Filosofía">Filosofía</option>
+                                    <option value="Economía">Economía</option>
+                                    <option value="Geografía">Geografía</option>
                                 </select>
                             </div>
                             <div>
                                 <label className='font-semibold' htmlFor={tiempo}>Tiempo: </label><br />
                                 <input className='h-10 w-96 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300' type="number" id={tiempo} name="tiempo" required
-                                    {...register("tiempo")} value="30" />
+                                    {...register("tiempo")} placeholder="30 (default)"/>
                             </div>
                         </div>
 
                     </main>
-                    <div className='flex justify-center pt-10'>
-                        <button type='submit' className="p-3 bg-red-200 rounded-lg hover:bg-red-300 font-semibold">INTRODUCIR PREGUNTA</button>
+                    <div className='flex justify-center'>
+                        <button type='submit' className="p-3 bg-red-200 rounded-lg hover:bg-red-300 font-semibold">
+                            {
+                                preguntaId ? (
+                                        <section> EDITAR PREGUNTA</section>
+                                    ) : (
+                                        <section>INTRODUCIR PREGUNTA</section>
+                                )
+                            }
+                        </button>
                     </div>
                 </form>
             </section>

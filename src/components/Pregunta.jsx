@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { LogoEditar } from './Icons';
 
 function Pregunta(props) {
@@ -14,13 +15,15 @@ function Pregunta(props) {
                                 <p>Nivel: {nivel}</p>
                                 <p>Dificultad: {dificultad}</p>
                                 <p>Asignatura: {asignatura}</p>
-                                <p>Tiempo: {tiempo}</p>
+                                <p>Tiempo: {tiempo}s</p>
                             </div>
                             {
                                 props.owner &&(
+                                    <Link to={"/editPregunta/"+ id}>
                                     <div className="w-5">
                                         <LogoEditar />
                                     </div>
+                                    </Link>
                                 )
                             }
                         </div>

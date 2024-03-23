@@ -25,7 +25,7 @@ export function CrearPartida() {
                     <div>
                         <h1>INTRODUCIR PREGUNTAS</h1>
                     </div>
-                    <div className='w-10' onClick={() => { navigate(-1) }}>
+                    <div className='w-10'>
                         <Link to="/"><LogoHome /></Link>
                     </div>
                 </header>

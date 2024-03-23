@@ -5,7 +5,7 @@ import {LogIn} from './LogIn.jsx'
 import React from 'react'
 import Footer from './Footer.jsx'
 import { UseUser } from '../hooks/UseUser.jsx'
-import Bienvenida from './RepositorioAdmin.jsx'
+import RepositorioAdmin from './RepositorioAdmin.jsx'
 
 function Home() {
     const {user} = UseUser();
@@ -22,13 +22,13 @@ function Home() {
                     <div className="snap-center">
                     {
                         user ? (
-                            <Bienvenida />
+                            <RepositorioAdmin />
                         ) : (
                             <LogIn/>
                         )
                     }
                     </div>
-                    <Footer></Footer>
+                    {/* <Footer></Footer> */}
                 </main>
         </div>
     )

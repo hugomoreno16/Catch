@@ -5,6 +5,11 @@ export function UseUser() {
     
     const {user, setUser} = useContext(UserContext);
 
-    return {user, setUser};
+    const resetUser = () => {
+        sessionStorage.removeItem("userId");
+        setUser();
+    };
+
+    return {user, setUser, resetUser};
 }
 

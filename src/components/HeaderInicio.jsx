@@ -1,4 +1,6 @@
-import { LogoUnirse, LogoRules, LogoLogIn } from './Icons.jsx';
+import { useNavigate } from 'react-router-dom';
+import { UseUser } from '../hooks/UseUser.jsx';
+import { LogoUnirse, LogoRules, LogoLogIn, LogoLogOut } from './Icons.jsx';
 
 export function HeaderInicio() {
     const scrollToSection = (sectionId) => {
@@ -6,6 +8,14 @@ export function HeaderInicio() {
         if (section) {
             section.scrollIntoView({ behavior: 'smooth' });
         }
+    }
+
+    const{user, resetUser} = UseUser();
+    const navigate = useNavigate();
+
+    const cerrarSesion = () =>{
+        navigate("/");
+        resetUser();
     }
 
     return (
@@ -22,7 +32,21 @@ export function HeaderInicio() {
                 <nav className="flex flex-grow justify-end basis-0">
                     <ul className="flex items-center text-center text-sm animate-fade-left animate-delay-1000 animate-duration-1000">
                         <li className="px-5 hover:bg-opacity-60 rounded-full transition-transform transform hover:scale-125"><button onClick={() => scrollToSection('toGame')}><LogoUnirse />Unirse</button></li>
-                        <li className="px-5 hover:bg-opacity-60 rounded-full transition-transform transform hover:scale-125"><button onClick={() => scrollToSection('admin')}><LogoLogIn />Log In</button></li>
+                        <li className="px-5 hover:bg-opacity-60 rounded-full transition-transform transform hover:scale-125">
+
+                        {
+                            user ? (
+                                <button onClick={cerrarSesion}>
+                                    <LogoLogOut /> Log out
+                                </button>   
+                            ) : (
+                            <div>
+                                <button onClick={() => scrollToSection('admin')}>
+                                    <LogoLogIn /> Log in
+                                </button>
+                            </div>
+                        )}
+                        </li>
                         <li className="px-5 hover:bg-opacity-60 rounded-full transition-transform transform hover:scale-125"><button onClick={() => scrollToSection('rules')}><LogoRules />Rules</button></li>
                     </ul>
                 </nav>
