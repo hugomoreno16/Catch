@@ -9,27 +9,32 @@ export function CrearPartida() {
     const asignatura = useId();
     const rondas = useId();
     const vidas = useId();
+    const nombrePartida = useId();
     const navigate = useNavigate();
 
-    const goBack = ()=>{
+    const goBack = () => {
         navigate(-1);
     }
 
     return (
-        <>
-            <section className="bg-gradient-to-br from-orange-300 to-rose-600 h-screen">
-                <header className="flex justify-between font-extrabold animate-flip-down animate-ease-in-out text-5xl text-center p-10">
-                    <button className='w-10' onClick={goBack} >
-                        <LogoAtras />
-                    </button>
-                    <div>
-                        <h1>INTRODUCIR PREGUNTAS</h1>
-                    </div>
-                    <div className='w-10'>
-                        <Link to="/"><LogoHome /></Link>
-                    </div>
-                </header>
+        <section className="bg-gradient-to-br from-orange-300 to-rose-600 h-screen">
+            <header className="flex justify-between font-extrabold animate-flip-down animate-ease-in-out text-5xl text-center p-10">
+                <button className='w-10' onClick={goBack} >
+                    <LogoAtras />
+                </button>
+                <div>
+                    <h1>INTRODUCIR PREGUNTAS</h1>
+                </div>
+                <div className='w-10'>
+                    <Link to="/"><LogoHome /></Link>
+                </div>
+            </header>
+            <form>
                 <main className='flex flex-col items-center gap-5'>
+                    <div>
+                        <label className='font-semibold' htmlFor={nombrePartida}>Nombre de la partida: </label><br />
+                        <input className='p-3 h-10 w-96 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300' type="text" id={nombrePartida} required />
+                    </div>
                     <div>
                         <label className='font-semibold' htmlFor={nivel}>Nivel De Pregunta: </label><br />
                         <select
@@ -68,20 +73,20 @@ export function CrearPartida() {
                             required
                         >
                             <option value="todo">Todo</option>
-                            <option value="1ESO">Matematicas</option>
-                            <option value="2ESO">Lengua</option>
-                            <option value="3ESO">Física</option>
-                            <option value="4ESO">Quimica</option>
-                            <option value="1BACH">Biologia</option>
-                            <option value="1ESO">Geoolgía</option>
-                            <option value="2BACH">Inglés</option>
-                            <option value="1ESO">Historia</option>
-                            <option value="1ESO">Francés</option>
-                            <option value="1ESO">Música</option>
-                            <option value="1ESO">Informatica</option>
-                            <option value="1ESO">Plástica</option>
-                            <option value="1ESO">Filosofía</option>
-                            <option value="1ESO">Economía</option>
+                            <option value="Matematicas">Matematicas</option>
+                            <option value="Lengua">Lengua</option>
+                            <option value="Física">Física</option>
+                            <option value="Quimica">Quimica</option>
+                            <option value="Biologia">Biologia</option>
+                            <option value="Geoolgía">Geoolgía</option>
+                            <option value="Inglés">Inglés</option>
+                            <option value="Historia">Historia</option>
+                            <option value="Francés">Francés</option>
+                            <option value="Música">Música</option>
+                            <option value="Informatica">Informatica</option>
+                            <option value="Plástica">Plástica</option>
+                            <option value="Filosofía">Filosofía</option>
+                            <option value="Economía">Economía</option>
                         </select>
                     </div>
                     <div>
@@ -96,7 +101,7 @@ export function CrearPartida() {
                 <div className='flex justify-center mt-10'>
                     <button className="p-3 bg-red-200 rounded-lg hover:bg-red-300 font-semibold">CREAR PARTIDA</button>
                 </div>
-            </section>
-        </>
+            </form>
+        </section>
     );
 }

@@ -3,24 +3,24 @@ import { LogoPuntos, LogoVidas, LogoVol } from "./Icons";
 import { useState, useEffect } from "react";
 
 export function CatchIt() {
+  const navigate = useNavigate();
   const location = useLocation();
   const codigoSala = location.state?.codigoSala;
   const nickname = location.state?.nickname;
   const [volumen, setVolumen] = useState(10);
-  const navigate = useNavigate();
   const [vidas, setVidas] = useState(3);
   const [puntos, setPuntos] = useState(1000);
   const [tiempo, setTiempo] = useState(60);
-
-  const handleVolumen = (event) => {
-    setVolumen(event.target.value);
-  };
 
   useEffect(() => {
     if (!codigoSala) {
       navigate("/");
     }
   }, [codigoSala, navigate]);
+
+  const handleVolumen = (event) => {
+    setVolumen(event.target.value);
+  };
 
   return (
     <section className="bg-gradient-to-b from-blue-300 to-zinc-300 max-h-screen h-screen">
@@ -60,10 +60,10 @@ export function CatchIt() {
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="border-white border-2 rounded-full m-5 flex flex-col justify-center items-center min-w-20 h-20 font-medium text-white bg-azul-oscuro">
+          <div className="ring-white ring-2 shadow-md shadow-azul-oscuro rounded-full m-5 flex flex-col justify-center items-center min-w-20 h-20 font-medium text-white bg-azul-oscuro">
             {tiempo}
           </div>
-          <button className="w-24 bg-azul-oscuro flex justify-center rounded-lg font-thin text-white h-9 items-center border-2 border-white">
+          <button className="w-24 ring-white ring-2 shadow-md shadow-azul-oscuro bg-azul-oscuro flex justify-center rounded-lg font-thin text-white h-9 items-center">
             TERMINAR
           </button>
         </div>
