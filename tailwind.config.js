@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'azul-oscuro': '#00159E',
+      }
+    },
   },
   plugins: [
     require('tailwindcss-animated')
