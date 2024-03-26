@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { LogoPuntos, LogoVidas, LogoVol } from "./Icons";
+import { LogoPuntos, LogoSkip, LogoSiVida,LogoNoVida, LogoVol } from "./Icons";
 import { useState, useEffect } from "react";
 
 export function CatchIt() {
@@ -11,6 +11,9 @@ export function CatchIt() {
   const [vidas, setVidas] = useState(3);
   const [puntos, setPuntos] = useState(1000);
   const [tiempo, setTiempo] = useState(60);
+  const [ronda, setRonda] = useState(1);
+  const rondas = 3;
+
 
   useEffect(() => {
     if (!codigoSala) {
@@ -24,21 +27,30 @@ export function CatchIt() {
 
   return (
     <section className="bg-gradient-to-b from-blue-300 to-zinc-300 max-h-screen h-screen">
-      <header className="flex justify-between h-2/5">
-        <div className="m-3 rounded-md border-black border-2 w-56 h-48 flex flex-col bg-gradient-to-t from-blue-300 to-zinc-300">
-          <div className="flex gap-2 m-3">
-            <LogoVol />
-            <input type="range" min={0} max={10} onChange={handleVolumen} />
-            <p>{volumen}</p>
+      <header className="flex justify-between h-3/5">
+        <div className="mx-5">
+          <div className="flex items-center">
+          <div className="ring-white ring-2 shadow-md shadow-azul-oscuro rounded-full m-5 flex flex-col justify-center items-center min-w-24 h-24 font-medium text-white bg-azul-oscuro text-5xl">
+            {tiempo}
           </div>
-          <div className="m-1 font-medium">Codigo de Sala: {codigoSala}</div>
-          <div className="m-1 font-medium">
-            Nombre: {nickname.toUpperCase()}
-          </div>
-          <div className="m-1 font-medium flex items-center gap-2"><LogoVidas/>Vidas: {vidas}</div>
-          <div className="m-1 font-medium flex items-center gap-2"><LogoPuntos/>Puntos: {puntos}</div>
+          <button className="w-14 ring-white ring-2 shadow-md shadow-azul-oscuro bg-azul-oscuro flex justify-center rounded-lg font-thin text-white h-9 items-center">
+            <LogoSkip/>
+          </button>
         </div>
-        <div className="border-black border-2 rounded-lg mt-3 flex-grow h-fit flex flex-col items-center justify-around bg-gradient-to-b from-blue-600 to-blue-300">
+        <div className="flex gap-1 justify-between m-2">
+           <LogoSiVida/>
+           <LogoSiVida/>
+           <LogoNoVida/>
+        </div>
+        <div className="flex gap-3 justify-start m-3 text-5xl">
+          <LogoPuntos/>
+          {puntos}
+        </div>
+        <div className="flex gap-3 justify-start ms-4 m-3 text-4xl font-medium">
+          Ronda: {ronda}/{rondas}
+        </div>
+        </div>
+        <div className="h-full border-black border-2 rounded-lg mt-3 me-5 flex-grow flex flex-col items-center justify-around bg-gradient-to-b from-blue-600 to-blue-300">
           <div className="flex mt-3 w-full justify-around">
             <div className="rounded-full border-2 border-green-300 w-10 h-10 flex justify-center items-center font-medium bg-green-600 text-white">1</div>
             <div className="rounded-full border-2 border-green-300 w-10 h-10 flex justify-center items-center font-medium bg-green-600 text-white">2</div>
@@ -59,16 +71,8 @@ export function CatchIt() {
             <div className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white"><div className="font-medium">D</div><div>Abraham Lincoln</div></div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
-          <div className="ring-white ring-2 shadow-md shadow-azul-oscuro rounded-full m-5 flex flex-col justify-center items-center min-w-20 h-20 font-medium text-white bg-azul-oscuro">
-            {tiempo}
-          </div>
-          <button className="w-24 ring-white ring-2 shadow-md shadow-azul-oscuro bg-azul-oscuro flex justify-center rounded-lg font-thin text-white h-9 items-center">
-            TERMINAR
-          </button>
-        </div>
       </header>
-      <main className="flex flex-col justify-center h-3/5">
+      <main className="flex flex-col justify-center h-2/5">
        <div>
        <div className="flex justify-around font-medium mb-2">
           <div>A</div>
