@@ -8,6 +8,7 @@ export function CatchIt() {
   const codigoSala = location.state?.codigoSala;
   const nickname = location.state?.nickname;
   const [marcadorPuntos, setMarcadorPuntos] = useState(1000);
+  const [tiempo, setTiempo] = useState(60);
 
   useEffect(() => {
     if (!codigoSala) {
@@ -21,6 +22,10 @@ export function CatchIt() {
 
   function empezarPregunta(){
     animacionesPantalla();
+  }
+
+  function skipTiempo(){
+    setTiempo(0);
   }
 
   function animacionesPantalla() {
@@ -46,9 +51,9 @@ export function CatchIt() {
         <div className="mx-5">
           <div className="flex items-center">
             <div className="ring-white ring-2 shadow-md shadow-azul-oscuro rounded-full m-5 flex flex-col justify-center items-center min-w-24 h-24 font-medium text-white bg-azul-oscuro text-5xl animate-pulse animate-infinite animate-ease-in">
-              60
+              {tiempo}
             </div>
-            <button className="w-14 ring-white ring-2 shadow-md shadow-azul-oscuro bg-azul-oscuro flex justify-center rounded-lg font-thin text-white h-9 items-center">
+            <button onClick={skipTiempo} className="w-14 ring-white ring-2 shadow-md shadow-azul-oscuro bg-azul-oscuro flex justify-center rounded-lg font-thin text-white h-9 items-center">
               <LogoSkip />
             </button>
           </div>
