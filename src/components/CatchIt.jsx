@@ -15,6 +15,31 @@ export function CatchIt() {
     }
   }, [codigoSala, navigate]);
 
+  useEffect(()=>{
+    empezarPregunta();
+  },[])
+
+  function empezarPregunta(){
+    animacionesPantalla();
+  }
+
+  function animacionesPantalla() {
+    document.getElementById("enunciadoPregunta").classList.add("animate-fade-down");
+    document.getElementById("enunciadoPregunta").classList.add("animate-ease-in");
+    document.getElementById("res1").classList.add("animate-fade-down");
+    document.getElementById("res1").classList.add("animate-delay-[1500ms]");
+    document.getElementById("res1").classList.add("animate-ease-in");
+    document.getElementById("res2").classList.add("animate-fade-down");
+    document.getElementById("res2").classList.add("animate-delay-[2500ms]");
+    document.getElementById("res2").classList.add("animate-ease-in");
+    document.getElementById("res3").classList.add("animate-fade-down");
+    document.getElementById("res3").classList.add("animate-delay-[3500ms]");
+    document.getElementById("res3").classList.add("animate-ease-in");
+    document.getElementById("res4").classList.add("animate-fade-down");
+    document.getElementById("res4").classList.add("animate-delay-[4500ms]");
+    document.getElementById("res4").classList.add("animate-ease-in");
+  }
+
   return (
     <section className="bg-gradient-to-b from-blue-300 to-zinc-300 max-h-screen h-screen">
       <header className="flex justify-between h-3/5">
@@ -51,14 +76,14 @@ export function CatchIt() {
             <div className="rounded-full border-2 border-red-500 w-10 h-10 flex justify-center items-center font-medium bg-red-200">7</div>
             <div className="rounded-full border-2 border-red-500 w-10 h-10 flex justify-center items-center font-medium bg-red-200">8</div>
           </div>
-          <div className="p-8 font-medium text-2xl w-full text-center animate-fade-down animate-ease-in">
+          <div id="enunciadoPregunta" className="p-8 font-medium text-2xl w-full text-center">
             ¿Quién fue el primer presidente de Estados Unidos?
           </div>
           <div className="flex justify-around w-full mb-2 gap-1 m-1">
-            <div className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white animate-fade-down animate-delay-[1500ms] animate-ease-in"><div className="font-medium">A</div><div>George Washington</div></div>
-            <div className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white animate-fade-down animate-delay-[2500ms] animate-ease-in"><div className="font-medium">B</div><div>Thomas Jefferson</div></div>
-            <div className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white animate-fade-down animate-delay-[3500ms] animate-ease-in"><div className="font-medium">C</div><div>John Adams</div></div>
-            <div className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white animate-fade-down animate-delay-[4500ms] animate-ease-in"><div className="font-medium">D</div><div>Abraham Lincoln</div></div>
+            <div id="res1" className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white"><div className="font-medium">A</div><div>George Washington</div></div>
+            <div id="res2" className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white"><div className="font-medium">B</div><div>Thomas Jefferson</div></div>
+            <div id="res3" className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white"><div className="font-medium">C</div><div>John Adams</div></div>
+            <div id="res4" className="border-2 border-black rounded-md w-60 h-fit min-h-28 flex flex-col items-center justify-around bg-azul-oscuro text-white"><div className="font-medium">D</div><div>Abraham Lincoln</div></div>
           </div>
         </div>
       </header>
