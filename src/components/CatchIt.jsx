@@ -9,6 +9,7 @@ export function CatchIt() {
   const nickname = location.state?.nickname;
   const [marcadorPuntos, setMarcadorPuntos] = useState(1000);
   const [tiempo, setTiempo] = useState(60);
+  const [puntosApostados, setPuntosApostados] = useState([0, 0, 0, 0]);
 
   useEffect(() => {
     if (!codigoSala) {
@@ -16,15 +17,15 @@ export function CatchIt() {
     }
   }, [codigoSala, navigate]);
 
-  useEffect(()=>{
+  useEffect(() => {
     empezarPregunta();
-  },[])
+  }, [])
 
-  function empezarPregunta(){
+  function empezarPregunta() {
     animacionesPantalla();
   }
 
-  function skipTiempo(){
+  function skipTiempo() {
     setTiempo(0);
   }
 
@@ -43,6 +44,30 @@ export function CatchIt() {
     document.getElementById("res4").classList.add("animate-fade-down");
     document.getElementById("res4").classList.add("animate-delay-[4500ms]");
     document.getElementById("res4").classList.add("animate-ease-in");
+  }
+
+  function handleIncrement(index) {
+    if (marcadorPuntos >= 100) {
+      //Cambia el valor de los nuevos puntos del recuadro correspondiente
+      const newPuntosApostados = [...puntosApostados];
+      newPuntosApostados[index] = Math.min(newPuntosApostados[index] + 100, 1000);
+      setPuntosApostados(newPuntosApostados);
+      actualizarMarcador(newPuntosApostados);
+    }
+  }
+  
+
+  function handleDecrement(index) {
+    const newPuntosApostados = [...puntosApostados];
+    const restarPuntos = Math.min(newPuntosApostados[index], 100);
+    newPuntosApostados[index] -= restarPuntos;
+    setPuntosApostados(newPuntosApostados);
+    actualizarMarcador(newPuntosApostados);
+  }
+
+  function actualizarMarcador(newPuntosApostados){
+    const totalPuntosApostados = newPuntosApostados.reduce((total, puntos) => total + puntos, 0);
+    setMarcadorPuntos(1000 - totalPuntosApostados);
   }
 
   return (
@@ -101,32 +126,44 @@ export function CatchIt() {
             <div>D</div>
           </div>
           <div className="flex justify-around flex-grow">
-          <div className="flex justify-around w-full mb-2 gap-1 m-1">
-      <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex shadow-lg shadow-azul-oscuro">
-        <div className="flex justify-between items-start w-full text-4xl font-semibold mx-2">
-          <button>+</button>
-          <button>-</button>
-        </div>
-      </div>
-      <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex shadow-lg shadow-azul-oscuro">
-        <div className="flex justify-between items-start w-full text-4xl font-semibold mx-2">
-          <button>+</button>
-          <button>-</button>
-        </div>
-      </div>
-      <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex shadow-lg shadow-azul-oscuro">
-        <div className="flex justify-between items-start w-full text-4xl font-semibold mx-2">
-          <button>+</button>
-          <button>-</button>
-        </div>
-      </div>
-      <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex shadow-lg shadow-azul-oscuro">
-        <div className="flex justify-between items-start w-full text-4xl font-semibold mx-2">
-          <button>+</button>
-          <button>-</button>
-        </div>
-      </div>
-    </div>
+            <div className="flex justify-around w-full mb-2 gap-1 m-1">
+              <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex flex-col justify-between shadow-lg shadow-azul-oscuro">
+                <div className="flex justify-between items-start w-full text-4xl font-semibold">
+                  <button onClick={() => handleIncrement(0)}>+</button>
+                  <button onClick={() => handleDecrement(0)}>-</button>
+                </div>
+                <div className="flex justify-center">
+                  {puntosApostados[0]}
+                </div>
+              </div>
+              <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex flex-col justify-between shadow-lg shadow-azul-oscuro">
+                <div className="flex justify-between items-start w-full text-4xl font-semibold">
+                  <button onClick={() => handleIncrement(1)}>+</button>
+                  <button onClick={() => handleDecrement(1)}>-</button>
+                </div>
+                <div className="flex justify-center">
+                  {puntosApostados[1]}
+                </div>
+              </div>
+              <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex flex-col justify-between shadow-lg shadow-azul-oscuro">
+                <div className="flex justify-between items-start w-full text-4xl font-semibold">
+                  <button onClick={() => handleIncrement(2)}>+</button>
+                  <button onClick={() => handleDecrement(2)}>-</button>
+                </div>
+                <div className="flex justify-center">
+                  {puntosApostados[2]}
+                </div>
+              </div>
+              <div className="h-52 w-60 ring-4 ring-azul-oscuro rounded-lg bg-zinc-400 flex flex-col justify-between shadow-lg shadow-azul-oscuro">
+                <div className="flex justify-between items-start w-full text-4xl font-semibold">
+                  <button onClick={() => handleIncrement(3)}>+</button>
+                  <button onClick={() => handleDecrement(3)}>-</button>
+                </div>
+                <div className="flex justify-center">
+                  {puntosApostados[3]}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
